@@ -14,6 +14,7 @@ public class BasicDocument extends Document
 	 */
 	public BasicDocument(String text)
 	{
+		
 		super(text);
 	}
 	
@@ -30,7 +31,8 @@ public class BasicDocument extends Document
 	{
 		//TODO: Implement this method.  See the Module 1 support videos 
 	    // if you need help.
-	    return 0;
+		List<String> tokens= getTokens("[a-zA-Z]+");
+	    return tokens.size();
 	}
 	
 	/**
@@ -46,7 +48,8 @@ public class BasicDocument extends Document
 	{
 	    //TODO: Implement this method.  See the Module 1 support videos 
         // if you need help.
-        return 0;
+		List<String> tokens = getTokens("[^!?.]+");
+	    return tokens.size();
 	}
 	
 	/**
@@ -60,9 +63,30 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSyllables()
 	{
-	    //TODO: Implement this method.  See the Module 1 support videos 
-        // if you need help.
-        return 0;
+		// We provide for you two solutions: One that uses multiple 
+		// regexs to calculate the number of syllables and the other
+		// that finds words using a loop.  The regex solution is commented 
+		// out here at the top.
+
+		/* Our solution using regex's.  Uncoment here to run it*/
+		/*
+		List<String> tokens = getTokens("[aeiouyAEIOUY]+");
+		List<String> loneEs = getTokens("[^aeiouyAEIOUY]+[eE]\\b");
+		List<String> singleEs = getTokens("\\b[^aeiouyAEIOUY]*[eE]\\b");
+		
+		
+		return tokens.size() - (loneEs.size() - singleEs.size());
+		*/
+		
+		/* Our solution that does NOT use regexs to find syllables */
+		List<String> tokens = getTokens("[a-zA-Z]+");
+		int totalSyllables = 0;
+		for (String word : tokens)
+		{
+			totalSyllables += countSyllables(word);
+		}
+		return totalSyllables;
+	
 	}
 	
 	
